@@ -6,8 +6,11 @@ import npcs.NPC;
 import npcs.NPCInterface;
 import npcs.Trader;
 import npcs.TypNPC;
+import predmety.Brnenie;
 import predmety.Pouzitelnost;
 import predmety.Predmet;
+import predmety.Vybavenie;
+import predmety.Zbran;
 import prostredie.Miestnost;
 
 import java.util.HashMap;
@@ -19,7 +22,7 @@ public class Hrac {
     private int zivot = 50;
     private final int maxZivot = 50;
     private int defense = 0;
-    private int mesec = 0;
+    private int mesec = 1000;
 
     public Hrac(Miestnost aktualnaMiestnost) {
         this.aktualnaMiestnost = aktualnaMiestnost;
@@ -45,7 +48,7 @@ public class Hrac {
      */
     public void zobrazInventar() {
         if (!this.inventar.isEmpty()) {
-            System.out.println("Inventar: ");
+            System.out.println("\nInventar: ");
             for (var i: this.inventar.keySet()) {
                 System.out.println(i);
             }
@@ -68,6 +71,12 @@ public class Hrac {
             System.out.println(polozeny.getNazov() + " sa neda polozit");
             this.inventar.put(polozeny.getNazov(), polozeny);
             return;
+        }
+        if (polozeny instanceof Vybavenie vybavenie) {
+            if (vybavenie.isEquipped()) {
+                System.out.println("nemozes polozit equipnute vybavenie");
+                return;
+            }
         }
         this.aktualnaMiestnost.polozeniePredmetu(polozeny);
         System.out.println("\nPolozil si " + predmet);
@@ -101,6 +110,32 @@ public class Hrac {
         }
     }
 
+    public void equipVybavenie(String nazov) {
+        var vybavenie = this.inventar.get(nazov);
+        if (vybavenie instanceof Zbran zbran) {
+            if (zbran.isEquipable()) {
+                if (zbran.isEquipped()) {
+                    this.pridajAttack(-zbran.getStats());
+                } else {
+                    this.pridajAttack(zbran.getStats());
+                }
+                zbran.pouzi(this);
+            } else {
+                System.out.println("\ntato zbran sa neda nasadit");
+            }
+        } else if (vybavenie instanceof Brnenie brnenie) {
+            if (brnenie.isEquipable()) {
+                if (brnenie.isEquipped()) {
+                    this.pridajDefense(-brnenie.getStats());
+                } else {
+                    this.pridajDefense(brnenie.getStats());
+                }
+                brnenie.pouzi(this);
+            } else {
+                System.out.println("\ntoto brnenie nie je mozne nasadit");
+            }
+        }
+    }
     /**
      * metoda vymaze predmet podla nazvu parametra popripade vymaze cely inventar
      * @param nazov nazov predmetu

@@ -1,16 +1,13 @@
 package predmety;
 
-public class Brnenie extends Predmet implements Vybavenie {
+import hlavne.Hrac;
 
-
+public class Brnenie extends Vybavenie implements Pouzitelnost {
     private boolean isEquipped;
-    private String nazov;
     private final int brnenieDefense;
-    private int cena;
 
     public Brnenie(String nazov, int brnenieDefense, int cena) {
-        this.nazov = nazov;
-        this.cena = cena;
+        super(nazov, cena);
         this.isEquipped = false;
         this.brnenieDefense = brnenieDefense;
     }
@@ -21,21 +18,12 @@ public class Brnenie extends Predmet implements Vybavenie {
     }
 
     @Override
-    public void equip() {
-        if (!this.isEquipped) {
-            this.isEquipped = true;
-        }
+    public boolean isEquipable() {
+        return true;
     }
 
-    @Override
-    public void unequip() {
-        if (this.isEquipped) {
-            this.isEquipped = false;
-        }
-    }
-
-    public String getNazov() {
-        return this.nazov;
+    public boolean isEquipped() {
+        return this.isEquipped;
     }
 
     @Override
@@ -43,15 +31,14 @@ public class Brnenie extends Predmet implements Vybavenie {
         return true;
     }
 
-    public int getCena() {
-        return this.cena;
-    }
-
-    public boolean isEquipped() {
-        return this.isEquipped;
-    }
-
-    public boolean mozemDropnutBrnenie() {
-        return !this.isEquipped;
+    @Override
+    public void pouzi(Hrac hrac) {
+        if (this.isEquipped) {
+            this.isEquipped = false;
+            System.out.println("\n unequipol si ");
+        } else {
+            this.isEquipped = true;
+            System.out.println("\n nasadil si ");
+        }
     }
 }

@@ -2,6 +2,7 @@ package prikaz;
 
 import hlavne.Hrac;
 import npcs.Trader;
+import predmety.Vybavenie;
 import prostredie.Miestnost;
 
 
@@ -12,7 +13,7 @@ public class Exekutor {
     private ArrayList<String> prikazy;
 
     public Exekutor() {
-        this.prikazy = new ArrayList<>(List.of("zobraz", "interakcia", "poloz", "zober", "chod", "koniec", "utok", "cena", "kup", "pozicia"));
+        this.prikazy = new ArrayList<>(List.of("zobraz", "interakcia", "poloz", "zober", "chod", "koniec", "utok", "equip", "kup", "predaj", "pozicia"));
     }
 
     public ArrayList<String> getPrikazy() {
@@ -146,7 +147,6 @@ public class Exekutor {
                     if (hrac.getMesec() >= trader.getStock().get(objekt).getCena()) {
                         hrac.pridajGoldy(-trader.getStock().get(objekt).getCena());
                         hrac.pridajDoInventara(objekt, trader.getStock().get(objekt));
-                        trader.removeStock(objekt);
                         System.out.println("\nHeh heh heh... Thank you!");
                     } else {
                         System.out.println("\nNot enough cash, stranger!");
@@ -158,6 +158,49 @@ public class Exekutor {
             System.out.println("\nIs that all, stranger?");
         } else {
             hrac.nakup(trader);
+        }
+    }
+
+    /**
+     * metoda na predanie predmetov traderovi
+     * @param prikaz
+     * @param hrac
+     * @param trader
+     */
+    public void predaj(Prikaz prikaz, Hrac hrac, Trader trader) {
+        if (prikaz.poznaObjekt()) {
+            String objekt = prikaz.getObjekt();
+            if (hrac.getInventar().containsKey(objekt)) {
+                if (hrac.getInventar().get(objekt) instanceof Vybavenie vybavenie) {
+                    if (vybavenie.isEquipped()) {
+                        System.out.println("\n" + objekt + " mas nasadene cize to nemozes predat");
+                        return;
+                    }
+                }
+                hrac.pridajGoldy(hrac.getInventar().get(objekt).getCena());
+                trader.pridajStock(hrac.getInventar().get(objekt).getNazov(), hrac.getInventar().get(objekt));
+                System.out.println("\npredal si " + objekt + " za " + hrac.getInventar().get(objekt).getCena() + " goldov");
+                hrac.vyhodPredmet(objekt);
+            } else {
+                System.out.println("\ntento predmet nemas");
+            }
+        }
+    }
+
+    /**
+     * motoda na nasadenie alebo vyzlecenie vybavenia
+     * @param prikaz
+     * @param hrac
+     */
+    public void equip(Prikaz prikaz, Hrac hrac) {
+        if (prikaz.poznaObjekt()) {
+            String objekt = prikaz.getObjekt();
+            if (hrac.getInventar().containsKey(objekt)) {
+                hrac.equipVybavenie(objekt);
+                System.out.print(objekt);
+            } else {
+                System.out.println("\ntoto nemam");
+            }
         }
     }
 
@@ -205,6 +248,12 @@ public class Exekutor {
                 return true;
             case "kup":
                 this.kup(prikaz, hrac, trader);
+                return true;
+            case "predaj":
+                this.predaj(prikaz, hrac, trader);
+                return true;
+            case "equip":
+                this.equip(prikaz, hrac);
                 return true;
             default:
                 return true;

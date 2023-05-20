@@ -5,8 +5,12 @@ import npcs.Prisoner;
 import npcs.Trader;
 import npcs.TypNPC;
 
-import predmety.*;
-import prostredie.Miestnost;
+import predmety.AttackPotion;
+import predmety.Brnenie;
+import predmety.DefensePotion;
+import predmety.HealthPotion;
+import predmety.Zbran;
+
 
 public class Mapa {
     private Miestnost zaciatok;
@@ -38,11 +42,12 @@ public class Mapa {
         vchod.setVychodVSmere("zapad", oltar);
         vchod.spawni(new NPC(TypNPC.GOBLIN));
         vchod.spawni(new NPC(TypNPC.GOBLINLORD));
-        vchod.polozeniePredmetu(new HealthPotion());
-        vchod.polozeniePredmetu(new DefensePotion());
-        vchod.polozeniePredmetu(new AttackPotion());
+        vchod.polozeniePredmetu(new HealthPotion("HPotion", 25));
+        vchod.polozeniePredmetu(new DefensePotion("DPotion", 40));
+        vchod.polozeniePredmetu(new AttackPotion("APotion", 35));
         vchod.spawni(new Trader(TypNPC.TRADER));
         vchod.spawni(new Prisoner(TypNPC.PRISONER));
+        vchod.polozeniePredmetu(new Brnenie("gate", 12, 100));
 
         prazdna.setVychodVSmere("zapad", vchod);
         prazdna.setVychodVSmere("juh", zbrojnica);

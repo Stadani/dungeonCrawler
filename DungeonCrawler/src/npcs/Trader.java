@@ -18,9 +18,9 @@ public class Trader extends FriendlyNPC implements NPCInterface {
         Predmet brnenie2 = new Brnenie("Chainmail", 3, 200);
         Predmet zbran1 = new Zbran("Dagger", 1, 50);
         Predmet zbran2 = new Zbran("ShortSword", 2, 100);
-        Predmet hP = new HealthPotion();
-        Predmet dP = new DefensePotion();
-        Predmet aP = new AttackPotion();
+        Predmet hP = new HealthPotion("HPotion", 25);
+        Predmet dP = new DefensePotion("DPotion", 40);
+        Predmet aP = new AttackPotion("APotion", 35);
         this.stock = new HashMap<>() {{
                 put(brnenie1.getNazov(), brnenie1);
                 put(brnenie2.getNazov(), brnenie2);
@@ -64,11 +64,12 @@ public class Trader extends FriendlyNPC implements NPCInterface {
     }
 
     /**
-     * odstrani kupeny tovar
+     * prida predany tovar
+     * @param nazov
      * @param predmet
      */
-    public void removeStock(String predmet) {
-        this.stock.remove(predmet);
+    public void pridajStock(String nazov, Predmet predmet) {
+        this.stock.put(nazov, predmet);
     }
 
 }

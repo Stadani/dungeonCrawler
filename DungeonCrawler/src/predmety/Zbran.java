@@ -1,17 +1,14 @@
 package predmety;
 
-public class Zbran extends Predmet implements Vybavenie {
+import hlavne.Hrac;
 
-    private boolean isEquipped;
-    private String nazov;
+public class Zbran extends Vybavenie implements Pouzitelnost {
     private final int zbranAttack;
-    private int cena;
-
+    private boolean isEquipped;
     public Zbran(String nazov, int zbranAttack, int cena) {
-        this.nazov = nazov;
-        this.cena = cena;
-        this.isEquipped = false;
+        super(nazov, cena);
         this.zbranAttack = zbranAttack;
+        this.isEquipped = false;
     }
 
     @Override
@@ -20,21 +17,12 @@ public class Zbran extends Predmet implements Vybavenie {
     }
 
     @Override
-    public void equip() {
-        if (!this.isEquipped) {
-            this.isEquipped = true;
-        }
+    public boolean isEquipable() {
+        return true;
     }
 
-    @Override
-    public void unequip() {
-        if (this.isEquipped) {
-            this.isEquipped = false;
-        }
-    }
-
-    public String getNazov() {
-        return this.nazov;
+    public boolean isEquipped() {
+        return this.isEquipped;
     }
 
     @Override
@@ -42,15 +30,14 @@ public class Zbran extends Predmet implements Vybavenie {
         return true;
     }
 
-    public int getCena() {
-        return this.cena;
-    }
-
-    public boolean isEquipped() {
-        return this.isEquipped;
-    }
-
-    public boolean mozemDropnutZbran() {
-        return !this.isEquipped;
+    @Override
+    public void pouzi(Hrac hrac) {
+        if (this.isEquipped) {
+            this.isEquipped = false;
+            System.out.println("\nunequipol si ");
+        } else {
+            this.isEquipped = true;
+            System.out.println("\nnasadil si ");
+        }
     }
 }
