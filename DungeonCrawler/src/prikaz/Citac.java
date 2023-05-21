@@ -2,11 +2,18 @@ package prikaz;
 
 
 import javax.swing.JOptionPane;
-
+/**
+ * trieda ktora berie vstup od uzivatela
+ * @author Richard Stadani
+ */
 public class Citac {
     private Exekutor ex;
     private String prikaz;
 
+    /**
+     * inicializuje hodnoty
+     * @param ex
+     */
     public Citac(Exekutor ex) {
         this.ex = ex;
     }

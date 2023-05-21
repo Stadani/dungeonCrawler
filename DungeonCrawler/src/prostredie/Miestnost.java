@@ -9,6 +9,10 @@ import java.util.HashMap;
 
 import java.util.Optional;
 
+/**
+ * trieda v ktorej je zoznam vychodov, predmetov, npc a metody spojene s miestnostou
+ * @author Richard Stadani
+ */
 public class Miestnost {
 
     private final HashMap<String, Miestnost> zoznamVychodov;
@@ -17,6 +21,10 @@ public class Miestnost {
 
     private final String popis;
 
+    /**
+     * inicializacia atributu a hashmapov
+     * @param popis
+     */
     public Miestnost(String popis) {
         this.zoznamNPCs = new HashMap<>();
         this.zoznamVychodov = new HashMap<>();
@@ -110,6 +118,11 @@ public class Miestnost {
     public HashMap<String, NPCInterface> getZoznamNPCs() {
         return this.zoznamNPCs;
     }
+
+    /**
+     * odstrani npc zo zoznamu podla kluca
+     * @param key
+     */
     public void removeNPC(String key) {
         this.zoznamNPCs.remove(key);
     }

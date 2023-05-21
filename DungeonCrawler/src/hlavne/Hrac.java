@@ -15,6 +15,10 @@ import prostredie.Miestnost;
 
 import java.util.HashMap;
 
+/**
+ * Trieda hraca s metodami ktore moze hrac vykonat
+ * @author Richard Stadani
+ */
 public class Hrac {
     private HashMap<String, Predmet> inventar;
     private Miestnost aktualnaMiestnost;
@@ -24,6 +28,10 @@ public class Hrac {
     private int defense = 0;
     private int mesec = 1000;
 
+    /**
+     * konstruktor nastavi aktualnu miestnost a vytvori inventar
+     * @param aktualnaMiestnost
+     */
     public Hrac(Miestnost aktualnaMiestnost) {
         this.aktualnaMiestnost = aktualnaMiestnost;
         this.inventar = new HashMap<>();
@@ -110,6 +118,10 @@ public class Hrac {
         }
     }
 
+    /**
+     * nasadi alebo da dole vybavenie
+     * @param nazov
+     */
     public void equipVybavenie(String nazov) {
         var vybavenie = this.inventar.get(nazov);
         if (vybavenie instanceof Zbran zbran) {
@@ -241,27 +253,51 @@ public class Hrac {
         this.mesec += mesec;
     }
 
+    /**
+     * vrati max zivoty
+     * @return maxZivot
+     */
     public int getMaxZivot() {
         return this.maxZivot;
     }
-
+    /**
+     * vrati aktualne zivoty
+     * @return zivot
+     */
     public int getZivot() {
         return this.zivot;
     }
-
+    /**
+     * nastavi zivoty
+     */
     public void setZivot(int zivot) {
         this.zivot = zivot;
     }
-
+    /**
+     * vrati attack
+     * @return attack
+     */
     public int getAttack() {
         return this.attack;
     }
+    /**
+     * vrati defense
+     * @return defense
+     */
     public int getDefense() {
         return this.defense;
     }
+    /**
+     * vrati peniaze v mesci
+     * @return mesec
+     */
     public int getMesec() {
         return this.mesec;
     }
+    /**
+     * vrati inventar
+     * @return inventar
+     */
     public HashMap<String, Predmet> getInventar() {
         return this.inventar;
     }

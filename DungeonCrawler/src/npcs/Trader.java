@@ -8,10 +8,17 @@ import predmety.AttackPotion;
 import predmety.DefensePotion;
 
 import java.util.HashMap;
-
+/**
+ * Trieda, v ktorej su je dedena trieda FriendlyNPC a sluzi ako postava v hre na obchodovanie
+ * @author Richard Stadani
+ */
 public class Trader extends FriendlyNPC  {
     private HashMap<String, Predmet> stock;
 
+    /**
+     * dedi konstruktor predka inicializujem predmety a dam ich do inventara traderovi
+     * @param typNPC
+     */
     public Trader(TypNPC typNPC) {
         super(typNPC.TRADER);
         Predmet brnenie1 = new Brnenie("KozeneBrnenie", 1, 100);
@@ -31,17 +38,26 @@ public class Trader extends FriendlyNPC  {
                 put(aP.getNazov(), aP);
             }};
     }
-
+    /**
+     * vracia typ NPC v stringu
+     * @return typ NPC v stringu
+     */
     @Override
     public String getNazovNPC() {
         return super.getNazovNPC();
     }
-
+    /**
+     * vracia popis ku NPC
+     * @return vracia popis
+     */
     @Override
     public String getPopis() {
         return super.getPopis() + "\nod tradera si mozes kupit predmety alebo ich predat";
     }
-
+    /**
+     * vracia dialog
+     * @return vracia dialog
+     */
     @Override
     public void dialog() {
         super.dialog();
@@ -59,6 +75,10 @@ public class Trader extends FriendlyNPC  {
             System.out.println(j.getNazov() + " " + j.getCena() + "G");
         }
     }
+    /**
+     * vracia inventar
+     * @return vracia inventar
+     */
     public HashMap<String, Predmet> getStock() {
         return this.stock;
     }

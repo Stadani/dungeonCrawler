@@ -11,10 +11,16 @@ import predmety.DefensePotion;
 import predmety.HealthPotion;
 import predmety.Zbran;
 
-
+/**
+ * trieda kde sa vytvara mapa
+ * @author Richard Stadani
+ */
 public class Mapa {
     private Miestnost zaciatok;
 
+    /**
+     * inicializacia atributu
+     */
     public Mapa() {
         this.zaciatok = this.generovanieMapy();
     }
@@ -79,6 +85,10 @@ public class Mapa {
         return vchod;
     }
 
+    /**
+     * vracia zaciatocnu miestnost
+     * @return miestnost
+     */
     public Miestnost getZaciatok() {
         return this.zaciatok;
     }

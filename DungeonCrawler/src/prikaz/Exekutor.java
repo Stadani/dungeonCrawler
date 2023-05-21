@@ -8,14 +8,24 @@ import prostredie.Miestnost;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * trieda ktora vykona cinnosti na zaklade vstupu
+ * @author Richard Stadani
+ */
 public class Exekutor {
     private ArrayList<String> prikazy;
 
+    /**
+     * atributu priradi pole a nastavi mu dostupne prikazy
+     */
     public Exekutor() {
         this.prikazy = new ArrayList<>(List.of("zobraz", "interakcia", "poloz", "zober", "chod", "koniec", "utok", "equip", "kup", "predaj", "pozicia"));
     }
 
+    /**
+     * vracia prikazy
+     * @return prikazy
+     */
     public ArrayList<String> getPrikazy() {
         return this.prikazy;
     }

@@ -8,11 +8,19 @@ import prikaz.Prikaz;
 import prostredie.Mapa;
 import prostredie.Miestnost;
 
+/**
+ * trieda na spustenie hry
+ * @author Richard Stadani
+ */
 public class DungeonCrawler {
     private Hrac hrac;
     private Mapa mapa;
     private Citac citac;
     private Exekutor exekutor;
+
+    /**
+     * tu si vytvaram mapu, hraca v startovacej miestnosti, exekutor a citac prikazov
+     */
     public DungeonCrawler() {
         this.mapa = new Mapa();
         Miestnost start = this.mapa.getZaciatok();

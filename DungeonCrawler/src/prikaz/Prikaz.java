@@ -1,11 +1,18 @@
 package prikaz;
-
+/**
+ * trieda na vytvorenie prikazu
+ * @author Richard Stadani
+ */
 public class Prikaz {
 
     private String prikaz;
     private String objekt;
 
-
+    /**
+     * inicializovanie atributov
+     * @param prikaz
+     * @param objekt
+     */
     public Prikaz(String prikaz, String objekt) {
         this.prikaz = prikaz;
         this.objekt = objekt;
