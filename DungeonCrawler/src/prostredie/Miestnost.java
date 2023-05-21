@@ -110,5 +110,8 @@ public class Miestnost {
     public HashMap<String, NPCInterface> getZoznamNPCs() {
         return this.zoznamNPCs;
     }
+    public void removeNPC(String key) {
+        this.zoznamNPCs.remove(key);
+    }
 
 }

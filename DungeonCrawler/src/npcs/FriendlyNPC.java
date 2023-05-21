@@ -14,7 +14,7 @@ public class FriendlyNPC implements NPCInterface {
 
     @Override
     public String getPopis() {
-        return "Na toto NPC nemozes utocit";
+        return "\nNa toto NPC nemozes utocit";
     }
 
     @Override

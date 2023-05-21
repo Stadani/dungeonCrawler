@@ -1,6 +1,6 @@
 package npcs;
 
-public class Prisoner extends FriendlyNPC implements NPCInterface {
+public class Prisoner extends FriendlyNPC {
 
     public Prisoner(TypNPC typNPC) {
         super(typNPC.PRISONER);
@@ -13,7 +13,7 @@ public class Prisoner extends FriendlyNPC implements NPCInterface {
 
     @Override
     public String getPopis() {
-        return super.getPopis();
+        return super.getPopis() + "\ntento vazen bol chyteny goblinmi";
     }
 
     @Override

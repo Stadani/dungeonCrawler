@@ -18,7 +18,7 @@ import java.util.HashMap;
 public class Hrac {
     private HashMap<String, Predmet> inventar;
     private Miestnost aktualnaMiestnost;
-    private int attack = 5;
+    private int attack = 500;
     private int zivot = 50;
     private final int maxZivot = 50;
     private int defense = 0;
@@ -172,7 +172,6 @@ public class Hrac {
         } else if (prisera instanceof NPC priserka) {
             priserka.zautoc(this);
             priserka.getPopis();
-
         }
     }
 
@@ -181,11 +180,11 @@ public class Hrac {
      * @return vrati false ak este nebol zabity
      */
     public boolean zabityBoss() {
-        var boss = this.aktualnaMiestnost.getZoznamNPCs().containsKey(TypNPC.GOBLINLORD);
-        if (!boss) {
-            return false;
+        var boss = this.aktualnaMiestnost.getZoznamNPCs().containsKey(TypNPC.GOBLINLORD.toString());
+        if (boss) {
+            return true;
         }
-        return true;
+        return false;
     }
 
     /**

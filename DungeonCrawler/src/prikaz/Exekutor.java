@@ -50,6 +50,7 @@ public class Exekutor {
         if (prikaz.poznaObjekt()) {
             String objekt = prikaz.getObjekt();
             if (hrac.getInventar().containsKey(objekt)) {
+                System.out.println("\npredmet " + objekt + " bol pouzity");
                 hrac.pouziPredmet(objekt);
                 hrac.vyhodPredmet(objekt);
             } else if (hrac.getAktualnaMiestnost().getZoznamNPCs().containsKey(objekt)) {
@@ -119,16 +120,33 @@ public class Exekutor {
      * @param prikaz
      * @param hrac
      */
-    public void utok(Prikaz prikaz, Hrac hrac) {
+    public boolean utok(Prikaz prikaz, Hrac hrac) {
         if (prikaz.poznaObjekt()) {
             String prisera = prikaz.getObjekt();
-            hrac.utok(prisera);
-            if (hrac.getZivot() <= 0) {
-                this.ukoncenieHry();
+            if (hrac.getAktualnaMiestnost().getZoznamNPCs().containsKey(prisera) && hrac.getAktualnaMiestnost().getZoznamNPCs().containsKey("GOBLINLORD")) {
+                hrac.utok(prisera);
+                if (hrac.getAktualnaMiestnost().getZoznamNPCs().containsKey("GOBLINLORD")) {
+                    if (hrac.zabityBoss()) {
+                        if (hrac.getZivot() <= 0) {
+                            System.out.println();
+                            this.ukoncenieHry();
+                        }
+                    } else {
+                        return hrac.zabityBoss();
+                    }
+                } else {
+                    return hrac.zabityBoss();
+                }
+            } else if (hrac.getAktualnaMiestnost().getZoznamNPCs().containsKey(prisera)) {
+                hrac.utok(prisera);
+            } else {
+                System.out.println("\ntato prisera tu nie je");
+                return true;
             }
         } else {
             System.out.println("\nzautocit na koho?");
         }
+        return true;
     }
 
     /**
@@ -165,9 +183,8 @@ public class Exekutor {
      * metoda na predanie predmetov traderovi
      * @param prikaz
      * @param hrac
-     * @param trader
      */
-    public void predaj(Prikaz prikaz, Hrac hrac, Trader trader) {
+    public void predaj(Prikaz prikaz, Hrac hrac) {
         if (prikaz.poznaObjekt()) {
             String objekt = prikaz.getObjekt();
             if (hrac.getInventar().containsKey(objekt)) {
@@ -178,7 +195,6 @@ public class Exekutor {
                     }
                 }
                 hrac.pridajGoldy(hrac.getInventar().get(objekt).getCena());
-                trader.pridajStock(hrac.getInventar().get(objekt).getNazov(), hrac.getInventar().get(objekt));
                 System.out.println("\npredal si " + objekt + " za " + hrac.getInventar().get(objekt).getCena() + " goldov");
                 hrac.vyhodPredmet(objekt);
             } else {
@@ -241,8 +257,7 @@ public class Exekutor {
                 this.ukoncenieHry();
                 return false;
             case "utok":
-                this.utok(prikaz, hrac);
-                return hrac.zabityBoss();
+                return this.utok(prikaz, hrac);
             case "pozicia":
                 this.pozicia(hrac.getAktualnaMiestnost());
                 return true;
@@ -250,7 +265,7 @@ public class Exekutor {
                 this.kup(prikaz, hrac, trader);
                 return true;
             case "predaj":
-                this.predaj(prikaz, hrac, trader);
+                this.predaj(prikaz, hrac);
                 return true;
             case "equip":
                 this.equip(prikaz, hrac);

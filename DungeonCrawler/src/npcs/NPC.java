@@ -49,10 +49,19 @@ public class NPC implements NPCInterface {
         hrac.pridajGoldy(goldy);
         System.out.println("\ndostal si " + goldy + " goldov");
     }
+
+    /**
+     * vypise nazov, attack, zivoty a defense NPC
+     */
     public void vypisVlastnosti() {
         System.out.println("\n" + this.getNazovNPC() + "\n----------\n" + "Attack: " + this.typNPC.getAttack() + "\nHealth: " + this.getHealth() + "\nDefense: " + this.typNPC.getDefense());
     }
 
+    /**
+     * metoda na pocitanie damagu sposobene hracovi a prisere
+     * ak hrac zabije goblinlorda tak splnil ucel hry
+     * @param hrac
+     */
     public void zautoc(Hrac hrac) {
         //damage sposobeny npcku
         var penDefNPC = this.getTypNPC().getDefense() - hrac.getAttack();
@@ -60,12 +69,13 @@ public class NPC implements NPCInterface {
             var novyHealthNPC = this.getHealth() + penDefNPC;
             if (novyHealthNPC <= 0) {
                 if (this.getTypNPC().equals(TypNPC.GOBLINLORD)) {
+                    this.setHealth(0);
                     System.out.println("\nZabil si sefa goblinov");
                     System.out.println("Splnil si ciel hry");
-                    this.setHealth(0);
+                    hrac.getAktualnaMiestnost().removeNPC(this.getNazovNPC());
                 } else {
                     this.setHealth(0);
-                    hrac.getAktualnaMiestnost().getZoznamNPCs().remove(this.getNazovNPC());
+                    hrac.getAktualnaMiestnost().removeNPC(this.getNazovNPC());
                     this.drop(hrac);
                 }
             } else {
@@ -87,5 +97,6 @@ public class NPC implements NPCInterface {
             System.out.println("Nedostal si damage vdaka armoru");
         }
     }
+
 
 }

@@ -9,7 +9,7 @@ import predmety.DefensePotion;
 
 import java.util.HashMap;
 
-public class Trader extends FriendlyNPC implements NPCInterface {
+public class Trader extends FriendlyNPC  {
     private HashMap<String, Predmet> stock;
 
     public Trader(TypNPC typNPC) {
@@ -39,7 +39,7 @@ public class Trader extends FriendlyNPC implements NPCInterface {
 
     @Override
     public String getPopis() {
-        return super.getPopis();
+        return super.getPopis() + "\nod tradera si mozes kupit predmety alebo ich predat";
     }
 
     @Override
@@ -61,15 +61,6 @@ public class Trader extends FriendlyNPC implements NPCInterface {
     }
     public HashMap<String, Predmet> getStock() {
         return this.stock;
-    }
-
-    /**
-     * prida predany tovar
-     * @param nazov
-     * @param predmet
-     */
-    public void pridajStock(String nazov, Predmet predmet) {
-        this.stock.put(nazov, predmet);
     }
 
 }

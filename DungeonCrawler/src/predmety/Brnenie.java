@@ -21,7 +21,7 @@ public class Brnenie extends Vybavenie implements Pouzitelnost {
     public boolean isEquipable() {
         return true;
     }
-
+    @Override
     public boolean isEquipped() {
         return this.isEquipped;
     }
